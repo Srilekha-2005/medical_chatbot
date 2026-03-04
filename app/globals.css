@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: #35C5CF;
+  --color-primary-light: #DBEFF5;
+  --color-secondary: #4FAED6;
+  --color-background-gray: #F4F7FB;
+  --color-chat-bg: #FFFFFF;
+  --color-bubble-tint: #e6f6f8;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+:root {
+  --background: #F4F7FB;
+  --foreground: #1e293b;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .healthcare-card {
+    @apply bg-white rounded-2xl shadow-[0_4px_24px_-4px_#00000014] border border-slate-100;
+  }
+
+  .glass-header {
+    @apply bg-white/95 backdrop-blur-md border-b border-slate-200/60 sticky top-0 z-10;
+  }
+}
