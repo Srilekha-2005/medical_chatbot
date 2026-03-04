@@ -1,6 +1,6 @@
 import os
 import json
-import xml.etree.ElementTree as ET
+import re
 
 input_dir = "datasets/raw/medquad/MedQuAD-master"
 output_file = "datasets/processed/medical_knowledge.json"
@@ -12,23 +12,24 @@ for root, dirs, files in os.walk(input_dir):
         file_path = os.path.join(root, file)
 
         try:
-            tree = ET.parse(file_path)
-            root_xml = tree.getroot()
+            with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+                content = f.read()
 
-            for qa in root_xml.iter("QAPair"):
-                q = qa.find("Question")
-                a = qa.find("Answer")
+                questions = re.findall(r"<Question>(.*?)</Question>", content, re.DOTALL)
+                answers = re.findall(r"<Answer>(.*?)</Answer>", content, re.DOTALL)
 
-                if q is not None and a is not None:
+                for q, a in zip(questions, answers):
                     qa_pairs.append({
-                        "question": q.text.strip(),
-                        "answer": a.text.strip()
+                        "question": q.strip(),
+                        "answer": a.strip()
                     })
 
         except:
             pass
 
 print("Total pairs extracted:", len(qa_pairs))
+
+os.makedirs("datasets/processed", exist_ok=True)
 
 with open(output_file, "w", encoding="utf-8") as f:
     json.dump(qa_pairs[:500], f, indent=2)
