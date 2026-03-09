@@ -1,0 +1,17 @@
+# FastAPI backend - AI Health Education Assistant
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+pydantic>=2.5.0
+
+# Data
+pandas>=2.0.0
+
+# RAG: sentence-transformers + FAISS for medical context retrieval
+sentence-transformers>=2.2.0
+faiss-cpu>=1.7.0
+numpy>=1.24.0
+
+# Report parsing: OCR and PDF
+PyMuPDF>=1.23.0
+Pillow>=10.0.0
+pytesseract>=0.3.10
